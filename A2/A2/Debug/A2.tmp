@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Erick\Documents\GitHub\uC\A2\A2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>Z:/Program Files\AVR\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>Z:\Program Files\AVR\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>Z:/Program Files\AVR\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\Debug\A2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>A2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>A2.map</FILE>
+  <FILE>A2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <main><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>17</LINE></main>
+  <mempointer><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>27</LINE></mempointer>
+  <convercion><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>38</LINE></convercion>
+  <bintobcd><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>49</LINE></bintobcd>
+  <end><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>45</LINE></end>
+  <restabin><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>51</LINE></restabin>
+  <juntar><FILE>C:\Users\Erick\Documents\GitHub\uC\A2\A2\main.asm</FILE><LINE>58</LINE></juntar>
+ </LABELS>
+</ASSEMBLER_INFO>
