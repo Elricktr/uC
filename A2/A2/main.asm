@@ -1,15 +1,15 @@
 
 ; Definiciones 
-.DEF temp     = r16			 ; Registro de prop髎ito general
+.DEF temp     = r16			 ; Registro de prop贸sito general
 .DEF counter  = r17			 ; Registro para contadores de bucle
 .DEF val      = r18			 ; Registro para almacenar el valor actual de la secuencia
 .DEF bcdin    = r20			 ; Registro para el valor de entrada a la subrutina BCD
-.DEF decenas  = r21			 ; Registro para almacenar el d韌ito de las decenas
+.DEF decenas  = r21			 ; Registro para almacenar el d铆gito de las decenas
 
 ;Constantes 
-.EQU n = 99                 ; N.
-.EQU HEXMEM = 0x0120		; Direcci髇 HEX
-.EQU BCDMEM = 0x0200		; Direcci髇 BCD
+.EQU n = 99                 ; N
+.EQU HEXMEM = 0x0120		; Direcci贸n HEX
+.EQU BCDMEM = 0x0200		; Direcci贸n BCD
 
 .CSEG
 .ORG 0x0000
@@ -21,7 +21,7 @@ main:
     LDI temp, HIGH(RAMEND)
     OUT SPH, temp
     LDI val, n					; Cargar el valor inicial N
-    LDI ZL, LOW(HEXMEM)			; Apuntar a la direcci髇 0x0120
+    LDI ZL, LOW(HEXMEM)			; Apuntar a la direcci贸n 0x0120
     LDI ZH, HIGH(HEXMEM)
 
 mempointer:
@@ -29,14 +29,14 @@ mempointer:
     DEC val							
     BRPL mempointer					
                                     
-    LDI counter, n + 1          ; Inicializar el contador N+1 n鷐eros 
+    LDI counter, n + 1          ; Inicializar el contador N+1 n煤meros 
     LDI XL, LOW(HEXMEM)			; Apuntar a la zona de datos HEX
     LDI XH, HIGH(HEXMEM)
     LDI YL, LOW(BCDMEM)			; Apuntar a la zona de datos BCD
     LDI YH, HIGH(BCDMEM)
 
 convercion:
-    LD bcdin, X+					; Cargar un n鷐ero de la zona HEX
+    LD bcdin, X+					; Cargar un n煤mero de la zona HEX
     RCALL bintobcd					
     ST Y+, bcdin					; Guardar BCD 
     DEC counter						; Decrementar el contador de bucle
@@ -49,7 +49,7 @@ end:
 bintobcd:
     CLR decenas						
 restabin:
-    CPI bcdin, 10					; Comparar el n鷐ero con 10
+    CPI bcdin, 10					; Comparar el n煤mero con 10
     BRLO juntar						
     SUBI bcdin, 10					
     INC decenas						; Incrementar el contador 
@@ -59,6 +59,6 @@ juntar:
     
     MOV temp, decenas				; temporal
     SWAP temp						 
-    OR bcdin, temp					; Combinar con el d韌ito de las unidades
+    OR bcdin, temp					; Combinar con el d铆gito de las unidades
                                     
     RET                             
