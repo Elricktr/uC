@@ -247,7 +247,7 @@ void timer1_servos_init(void){
 	TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11);
 	
 	
-	ICR1 = 39999;
+	ICR1 = 19999;
 	
 	
 	OCR1A = 2000; // Canal 1 (Servo 1)

@@ -559,7 +559,7 @@ END GROUP
  .debug_frame   0x00000150       0x24 ports.o
  .debug_frame   0x00000174      0x11c timers.o
 
-.debug_str      0x00000000      0x594
+.debug_str      0x00000000      0x5ce
  *(.debug_str)
  .debug_str     0x00000000      0x208 Z:/Program Files/AVR/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x172 comp.o
@@ -572,8 +572,8 @@ END GROUP
                                 0x204 (size before relaxing)
  .debug_str     0x0000044d        0xd ports.o
                                 0x18c (size before relaxing)
- .debug_str     0x0000045a      0x13a timers.o
-                                0x2df (size before relaxing)
+ .debug_str     0x0000045a      0x174 timers.o
+                                0x2bf (size before relaxing)
 
 .debug_loc      0x00000000      0x5a4
  *(.debug_loc)

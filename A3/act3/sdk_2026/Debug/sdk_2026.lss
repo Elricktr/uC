@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000290  00000000  00000000  00002860  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000594  00000000  00000000  00002af0  2**0
+ 10 .debug_str    000005ce  00000000  00000000  00002af0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000005a4  00000000  00000000  00003084  2**0
+ 11 .debug_loc    000005a4  00000000  00000000  000030be  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000e0  00000000  00000000  00003628  2**0
+ 12 .debug_ranges 000000e0  00000000  00000000  00003662  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -101,12 +101,6 @@ Disassembly of section .text:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <__vector_23>:
-#include "leds.h"
-#include <avr/interrupt.h>
-#include <avr/io.h>
-
-ISR(ANALOG_COMP_vect)
-{
   a6:	1f 92       	push	r1
   a8:	0f 92       	push	r0
   aa:	0f b6       	in	r0, 0x3f	; 63
@@ -124,9 +118,7 @@ ISR(ANALOG_COMP_vect)
   c2:	bf 93       	push	r27
   c4:	ef 93       	push	r30
   c6:	ff 93       	push	r31
-	led_on_off_fast();
   c8:	0e 94 9b 00 	call	0x136	; 0x136 <led_on_off_fast>
-}
   cc:	ff 91       	pop	r31
   ce:	ef 91       	pop	r30
   d0:	bf 91       	pop	r27
@@ -146,12 +138,6 @@ ISR(ANALOG_COMP_vect)
   ec:	18 95       	reti
 
 000000ee <__vector_1>:
- */
-#include <avr/interrupt.h>
-#include "leds.h"
-
-ISR(INT0_vect)
-{
   ee:	1f 92       	push	r1
   f0:	0f 92       	push	r0
   f2:	0f b6       	in	r0, 0x3f	; 63
@@ -169,9 +155,7 @@ ISR(INT0_vect)
  10a:	bf 93       	push	r27
  10c:	ef 93       	push	r30
  10e:	ff 93       	push	r31
-		led_on_off_fast();
  110:	0e 94 9b 00 	call	0x136	; 0x136 <led_on_off_fast>
-}
  114:	ff 91       	pop	r31
  116:	ef 91       	pop	r30
  118:	bf 91       	pop	r27
@@ -191,17 +175,9 @@ ISR(INT0_vect)
  134:	18 95       	reti
 
 00000136 <led_on_off_fast>:
-	PORTB ^= 1 << PB5;
-	_delay_ms(500);
-}
-void led_on_off_fast()
-{
-	for(int x = 0; x < 20; x++)
  136:	20 e0       	ldi	r18, 0x00	; 0
  138:	30 e0       	ldi	r19, 0x00	; 0
  13a:	0f c0       	rjmp	.+30     	; 0x15a <led_on_off_fast+0x24>
-	{
-		PORTB ^= 1 << PB5;
  13c:	95 b1       	in	r25, 0x05	; 5
  13e:	80 e2       	ldi	r24, 0x20	; 32
  140:	89 27       	eor	r24, r25
@@ -221,41 +197,19 @@ void led_on_off_fast()
  150:	e1 f7       	brne	.-8      	; 0x14a <led_on_off_fast+0x14>
  152:	00 c0       	rjmp	.+0      	; 0x154 <led_on_off_fast+0x1e>
  154:	00 00       	nop
-	PORTB ^= 1 << PB5;
-	_delay_ms(500);
-}
-void led_on_off_fast()
-{
-	for(int x = 0; x < 20; x++)
  156:	2f 5f       	subi	r18, 0xFF	; 255
  158:	3f 4f       	sbci	r19, 0xFF	; 255
  15a:	24 31       	cpi	r18, 0x14	; 20
  15c:	31 05       	cpc	r19, r1
  15e:	74 f3       	brlt	.-36     	; 0x13c <led_on_off_fast+0x6>
-	{
-		PORTB ^= 1 << PB5;
-		_delay_ms(100);	
-	}
-	
  160:	08 95       	ret
 
 00000162 <main>:
-    //{
-	 ////led_on_off();
-    //}
-	
-	
-	init_ports();           // Inicializa los puertos
  162:	0e 94 41 01 	call	0x282	; 0x282 <init_ports>
-	timer1_servos_init();   // Configura Timer1 para PWM en OC1A y OC1B
  166:	0e 94 77 01 	call	0x2ee	; 0x2ee <timer1_servos_init>
-	
-	//0° al inicio
-	servo1_set_pos(SERVO_POS_0);
  16a:	84 e8       	ldi	r24, 0x84	; 132
  16c:	93 e0       	ldi	r25, 0x03	; 3
  16e:	0e 94 8e 01 	call	0x31c	; 0x31c <servo1_set_pos>
-	servo2_set_pos(SERVO_POS_0);
  172:	84 e8       	ldi	r24, 0x84	; 132
  174:	93 e0       	ldi	r25, 0x03	; 3
  176:	0e 94 93 01 	call	0x326	; 0x326 <servo2_set_pos>
@@ -268,12 +222,6 @@ void led_on_off_fast()
  186:	e1 f7       	brne	.-8      	; 0x180 <main+0x1e>
  188:	00 c0       	rjmp	.+0      	; 0x18a <main+0x28>
  18a:	00 00       	nop
-	
-	while (1){
-		
-		//Secuencia 1: Servo 1 (0 - 90 - 180) 
-		
-		servo1_set_pos(SERVO_POS_90);
  18c:	8c ed       	ldi	r24, 0xDC	; 220
  18e:	95 e0       	ldi	r25, 0x05	; 5
  190:	0e 94 8e 01 	call	0x31c	; 0x31c <servo1_set_pos>
@@ -286,8 +234,6 @@ void led_on_off_fast()
  1a0:	e1 f7       	brne	.-8      	; 0x19a <main+0x38>
  1a2:	00 c0       	rjmp	.+0      	; 0x1a4 <main+0x42>
  1a4:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-		servo1_set_pos(SERVO_POS_180);
  1a6:	80 ed       	ldi	r24, 0xD0	; 208
  1a8:	97 e0       	ldi	r25, 0x07	; 7
  1aa:	0e 94 8e 01 	call	0x31c	; 0x31c <servo1_set_pos>
@@ -300,11 +246,6 @@ void led_on_off_fast()
  1ba:	e1 f7       	brne	.-8      	; 0x1b4 <main+0x52>
  1bc:	00 c0       	rjmp	.+0      	; 0x1be <main+0x5c>
  1be:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-
-		//Secuencia 2: Servo 2 (0 -> 90 -> 180) 
-		
-		servo2_set_pos(SERVO_POS_90);
  1c0:	8c ed       	ldi	r24, 0xDC	; 220
  1c2:	95 e0       	ldi	r25, 0x05	; 5
  1c4:	0e 94 93 01 	call	0x326	; 0x326 <servo2_set_pos>
@@ -317,8 +258,6 @@ void led_on_off_fast()
  1d4:	e1 f7       	brne	.-8      	; 0x1ce <main+0x6c>
  1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <main+0x76>
  1d8:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-		servo2_set_pos(SERVO_POS_180);
  1da:	80 ed       	ldi	r24, 0xD0	; 208
  1dc:	97 e0       	ldi	r25, 0x07	; 7
  1de:	0e 94 93 01 	call	0x326	; 0x326 <servo2_set_pos>
@@ -340,12 +279,6 @@ void led_on_off_fast()
  200:	e1 f7       	brne	.-8      	; 0x1fa <main+0x98>
  202:	00 c0       	rjmp	.+0      	; 0x204 <main+0xa2>
  204:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-
-		_delay_ms(SERVO_MOVE_DELAY); // Pausa 
-
-		//Secuencia 3: Servo 1 (180 -> 90 -> 0) 
-		servo1_set_pos(SERVO_POS_90);
  206:	8c ed       	ldi	r24, 0xDC	; 220
  208:	95 e0       	ldi	r25, 0x05	; 5
  20a:	0e 94 8e 01 	call	0x31c	; 0x31c <servo1_set_pos>
@@ -358,8 +291,6 @@ void led_on_off_fast()
  21a:	e1 f7       	brne	.-8      	; 0x214 <main+0xb2>
  21c:	00 c0       	rjmp	.+0      	; 0x21e <main+0xbc>
  21e:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-		servo1_set_pos(SERVO_POS_0);
  220:	84 e8       	ldi	r24, 0x84	; 132
  222:	93 e0       	ldi	r25, 0x03	; 3
  224:	0e 94 8e 01 	call	0x31c	; 0x31c <servo1_set_pos>
@@ -372,10 +303,6 @@ void led_on_off_fast()
  234:	e1 f7       	brne	.-8      	; 0x22e <main+0xcc>
  236:	00 c0       	rjmp	.+0      	; 0x238 <main+0xd6>
  238:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-
-		//Secuencia 4: Servo 2 (180 -> 90 -> 0) 
-		servo2_set_pos(SERVO_POS_90);
  23a:	8c ed       	ldi	r24, 0xDC	; 220
  23c:	95 e0       	ldi	r25, 0x05	; 5
  23e:	0e 94 93 01 	call	0x326	; 0x326 <servo2_set_pos>
@@ -388,8 +315,6 @@ void led_on_off_fast()
  24e:	e1 f7       	brne	.-8      	; 0x248 <main+0xe6>
  250:	00 c0       	rjmp	.+0      	; 0x252 <main+0xf0>
  252:	00 00       	nop
-		_delay_ms(SERVO_MOVE_DELAY);
-		servo2_set_pos(SERVO_POS_0);
  254:	84 e8       	ldi	r24, 0x84	; 132
  256:	93 e0       	ldi	r25, 0x03	; 3
  258:	0e 94 93 01 	call	0x326	; 0x326 <servo2_set_pos>
@@ -414,17 +339,9 @@ void led_on_off_fast()
  280:	85 cf       	rjmp	.-246    	; 0x18c <main+0x2a>
 
 00000282 <init_ports>:
-	//PORTD |= (1 << PD2);//activa Rp
-	//uso temporal del puerto B para LCD
-	//DDRB = 0xff; //PB4 a PB7 para datos
-	
-	//configura PB1 como salida para OC1A 
-	DDRB |= (1 << PB1);
  282:	84 b1       	in	r24, 0x04	; 4
  284:	82 60       	ori	r24, 0x02	; 2
  286:	84 b9       	out	0x04, r24	; 4
-	//configura PB2 como salida para OC1B 
-	DDRB |= (1 << PB2);
  288:	84 b1       	in	r24, 0x04	; 4
  28a:	84 60       	ori	r24, 0x04	; 4
  28c:	84 b9       	out	0x04, r24	; 4
@@ -499,9 +416,9 @@ void timer1_servos_init(void){
  2f6:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
 	
 	
-	ICR1 = 39999;
- 2fa:	8f e3       	ldi	r24, 0x3F	; 63
- 2fc:	9c e9       	ldi	r25, 0x9C	; 156
+	ICR1 = 19999;
+ 2fa:	8f e1       	ldi	r24, 0x1F	; 31
+ 2fc:	9e e4       	ldi	r25, 0x4E	; 78
  2fe:	90 93 87 00 	sts	0x0087, r25	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
  302:	80 93 86 00 	sts	0x0086, r24	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
 	
